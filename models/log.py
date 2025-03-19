@@ -103,7 +103,7 @@ def randomize() -> None:
 
 class Window():
     def __init__(self):
-        with dpg.tab(parent='models_tabs', label='Logistic Model'):
+        with dpg.tab(parent='models_tabs', label='Logistic'):
             dpg.add_slider_double(tag='log_growth_speed',
                                       min_value=LOG_GROWTH_SPEED_MIN, max_value=LOG_GROWTH_SPEED_MAX, default_value=log_growth_speed,
                                       width=200, label='Growth speed',

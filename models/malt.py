@@ -7,9 +7,7 @@ from scipy.integrate import odeint
 
 from constants import *
 
-
 def model(y, t: any) -> float: return malt_growth_speed * y
-
 
 malt_growth_speed: float = random.uniform(MALT_GROWTH_SPEED_MIN, MALT_GROWTH_SPEED_MAX)
 malt_init_pop: float = random.uniform(MALT_INIT_POP_MIN, MALT_INIT_POP_MAX)
@@ -55,9 +53,10 @@ def drag_line():
         malt_init_pop = MALT_INIT_POP_MIN
     else:
         malt_init_pop = value
-    update('malt_init_pop')
     dpg.configure_item('malt_init_pop', default_value=malt_init_pop)
     dpg.configure_item('malt_init_pop_line', default_value=malt_init_pop)
+    update('malt_init_pop')
+    
 
 
 def randomize() -> None:
@@ -70,7 +69,7 @@ def randomize() -> None:
 
 class Window:
     def __init__(self):
-        with dpg.tab(parent='models_tabs', label='Malthusian Model'):
+        with dpg.tab(parent='models_tabs', label='Malthusian'):
             dpg.add_slider_double(tag='malt_growth_speed',
                                   min_value=MALT_GROWTH_SPEED_MIN, max_value=MALT_GROWTH_SPEED_MAX,
                                   default_value=malt_growth_speed,
