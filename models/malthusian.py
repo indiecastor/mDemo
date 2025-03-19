@@ -21,6 +21,7 @@ def update(param: Literal['malt_growth_speed', 'malt_init_pop', 'all']) -> None:
     global malt_growth_speed, malt_init_pop, solution
 
     # Updating values of params
+    # eggs
     match param:
         case 'malt_growth_speed':
             malt_growth_speed = dpg.get_value('malt_growth_speed')
