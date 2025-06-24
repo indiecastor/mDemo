@@ -1,3 +1,5 @@
+import dearpygui.dearpygui as dpg
+
 # TAG SYSTEM
 # prefix: tab
 #     ov_        - overview
@@ -8,7 +10,7 @@
 #     complv     - competitive lotka-volterra model
 #     genlv      - generalized lotka-volterra model
 # postfix: text type
-#     _header     - header (JetBrainsMonoNL-ExtraBold, 40)
+#     _header    - header (JetBrainsMonoNL-ExtraBold, 40)
 #     _subheader - subheader (JetBrainsMonoNL-Bold, 30)
 #     _paragraph - regular text (JetBrainsMonoNL-Regular, 18)
 
@@ -51,22 +53,21 @@ and delta (effect of the presence of prey on the predator's growth rate)
 """.replace('\n', '')
 
 OV_COMPLV_SUBHEADER = 'Competitive Lotka-Volterra Model'
-OV_COMPLV_PARAGRAPH = """Competitive Lotka-Volterra Model test
+OV_COMPLV_PARAGRAPH = """The competitive Lotka-Volterra equations are a simple model
+of the population dynamics of species competing for some common resource. Parameters are:
+alpha12 - the effect of species 1 on species 2; alpha21 - the effect of species 2 on species 1;
+initial populations, capacities and growth speeds.
 """.replace('\n', '')
 
-OV_GENLV_SUBHEADER = 'Generalized Lotka-Volterra Model'
-OV_GENLV_PARAGRAPH = """Generalized Lotka-Volterra Model test
-""".replace('\n', '')
 
 TEXTS_EXTRA_BOLD: list[str] = ['ov_intro_header']
 TEXTS_BOLD: tuple[str] = (
                             'ov_malt_subheader', 'ov_log_subheader',
-                            'ov_lv_subheader', 'ov_complv_subheader', 'ov_genlv_subheader')
+                            'ov_lv_subheader', 'ov_complv_subheader')
 TEXTS_REGULAR: tuple[str] = (
                             'ov_intro_paragraph',
                             'ov_malt_paragraph',
                             'ov_log_paragraph',
                             'ov_lv_paragraph_1',
                             'ov_lv_paragraph_2',
-                            'ov_complv_paragraph',
-                            'ov_genlv_paragraph')
+                            'ov_complv_paragraph')

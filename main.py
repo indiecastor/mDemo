@@ -2,7 +2,7 @@ import dearpygui.dearpygui as dpg
 
 from gui.texts import *
 from gui.indents import *
-from models import log, malt, pplv, complv, genlv
+from models import log, malt, pplv, complv
 
 
 dpg.create_context()
@@ -11,8 +11,8 @@ dpg.create_viewport(title='Models Demo',
                     width=1280, height=720, x_pos=20, y_pos=20)
 
 
-def update_geometry():
-    vp_width: int = dpg.get_viewport_width()
+def update_geometry(sender, app_data):
+    vp_width:  int = dpg.get_viewport_width()
     vp_height: int = dpg.get_viewport_height()
 
     # Malthusian Model Plot
@@ -22,12 +22,20 @@ def update_geometry():
     # Lotka-Volterra Model Plots
     dpg.configure_item('lv_main_plot', width=(vp_width-LV_BOTH_R)/LV_BOTH_W_DIV, height=vp_height-LV_BOTH_D)
     dpg.configure_item('lv_phase_diagram', width=(vp_width-LV_BOTH_R)/LV_BOTH_W_DIV, height=vp_height-LV_BOTH_D)
+    # COMPLV - Plots
+    dpg.configure_item('complv_plot', width=(dpg.get_viewport_width()/COMPLV_BOTH_W_DIV)-COMPLV_BOTH_R, height=vp_height-COMPLV_BOTH_D)
+    dpg.configure_item('complv_phase', width=(dpg.get_viewport_width()/COMPLV_BOTH_W_DIV)-COMPLV_BOTH_R, height=vp_height-COMPLV_BOTH_D)
+    # COMPLV - Sliders
+    dpg.configure_item('complv_sliders_0', width=vp_width / COMPLV_HEADER_BOTH_DIV - COMPLV_HEADER_BOTH_R)
+    dpg.configure_item('complv_sliders_1', width=vp_width / COMPLV_HEADER_BOTH_DIV - COMPLV_HEADER_BOTH_R)
 
     for paragraph in TEXTS_REGULAR: dpg.configure_item(paragraph, wrap=vp_width-40)
-    
+
+with dpg.handler_registry():
+    dpg.add_mouse_down_handler(callback=update_geometry)
     
 # MAIN WINDOW
-dpg.add_window(tag='main_window')
+dpg.add_window(tag='main_window', autosize=True)
 with dpg.tab_bar(parent='main_window', tag='models_tabs'):
     with dpg.tab(label='Overview'): # OVERVIEW
 
@@ -47,27 +55,27 @@ with dpg.tab_bar(parent='main_window', tag='models_tabs'):
         dpg.add_text(OV_COMPLV_SUBHEADER, tag='ov_complv_subheader')
         dpg.add_text(OV_COMPLV_PARAGRAPH, tag='ov_complv_paragraph',
                      wrap=dpg.get_viewport_width()-PARAG_R)
-        dpg.add_text(OV_GENLV_SUBHEADER,  tag='ov_genlv_subheader')
-        dpg.add_text(OV_GENLV_PARAGRAPH,  tag='ov_genlv_paragraph', wrap=dpg.get_viewport_width()-PARAG_R)
 
     malt.Window()
     log.Window()    
     pplv.Window()
     complv.Window()
-    genlv.Window()
    
 dpg.setup_dearpygui()
 dpg.set_primary_window('main_window', True)
 
 with dpg.font_registry():
-    jb_mono_extra_bold = dpg.add_font('fonts/JetBrainsMonoNL-ExtraBold.ttf', 40)
-    jb_mono_bold       = dpg.add_font('fonts/JetBrainsMonoNL-Bold.ttf', 30)
-    jb_mono_regular    = dpg.add_font('fonts/JetBrainsMonoNL-Regular.ttf', 18)
-dpg.bind_font(jb_mono_regular)
+        jb_mono_extra_bold = dpg.add_font('gui/fonts/JetBrainsMonoNL-ExtraBold.ttf', 40)
+        jb_mono_bold       = dpg.add_font('gui/fonts/JetBrainsMonoNL-Bold.ttf', 30)
+        jb_mono_regular    = dpg.add_font('gui/fonts/JetBrainsMonoNL-Regular.ttf', 18)
+        dpg.bind_font(jb_mono_regular)
+
 
 for item in TEXTS_EXTRA_BOLD: dpg.bind_item_font(item, font=jb_mono_extra_bold)
 for item in TEXTS_BOLD:       dpg.bind_item_font(item, font=jb_mono_bold)
 for item in TEXTS_REGULAR:    dpg.bind_item_font(item, font=jb_mono_regular)
+
+
 
 dpg.set_viewport_resize_callback(update_geometry)
 

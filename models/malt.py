@@ -10,21 +10,18 @@ from constants import *
 def model(y, t: any) -> float: return malt_growth_speed * y
 
 malt_growth_speed: float = random.uniform(MALT_GROWTH_SPEED_MIN, MALT_GROWTH_SPEED_MAX)
-malt_init_pop: float = random.uniform(MALT_INIT_POP_MIN, MALT_INIT_POP_MAX)
+malt_init_pop: float     = random.uniform(MALT_INIT_POP_MIN, MALT_INIT_POP_MAX)
+
 t_values = np.arange(0, 2, .01)
 solution = odeint(model, malt_init_pop, t_values)
 
 
 def update(param: Literal['malt_growth_speed', 'malt_init_pop', 'all']) -> None:
     global malt_growth_speed, malt_init_pop, solution
-
     # Updating values of params
-    # eggs
     match param:
-        case 'malt_growth_speed':
-            malt_growth_speed = dpg.get_value('malt_growth_speed')
-        case 'malt_init_pop':
-            malt_init_pop = dpg.get_value('malt_init_pop')
+        case 'malt_growth_speed': malt_growth_speed = dpg.get_value('malt_growth_speed')
+        case 'malt_init_pop':     malt_init_pop = dpg.get_value('malt_init_pop')
         case 'all':
             malt_growth_speed = dpg.get_value('malt_growth_speed')
             malt_init_pop = dpg.get_value('malt_init_pop')
@@ -39,6 +36,9 @@ def update(param: Literal['malt_growth_speed', 'malt_init_pop', 'all']) -> None:
         print('[MALT] Unknown param!')
     # Re-calculating solution
     solution = odeint(model, malt_init_pop, t_values)
+    # Updating sliders
+    dpg.configure_item('malt_init_pop', default_value=malt_init_pop)
+    dpg.configure_item('malt_init_pop_line', default_value=malt_init_pop)
     # Updating plot
     dpg.set_value('malt_pop_line', [t_values, solution])
     dpg.set_value('malt_init_pop_line', malt_init_pop)
@@ -46,24 +46,22 @@ def update(param: Literal['malt_growth_speed', 'malt_init_pop', 'all']) -> None:
 
 def drag_line():
     global malt_growth_speed, malt_init_pop
+    
     value = round(dpg.get_value('malt_init_pop_line'), 3)
-    if value >= MALT_INIT_POP_MAX:
-        malt_init_pop = MALT_INIT_POP_MAX
-    elif value <= MALT_INIT_POP_MIN:
-        malt_init_pop = MALT_INIT_POP_MIN
-    else:
-        malt_init_pop = value
-    dpg.configure_item('malt_init_pop', default_value=malt_init_pop)
-    dpg.configure_item('malt_init_pop_line', default_value=malt_init_pop)
+    if value >= MALT_INIT_POP_MAX:        malt_init_pop = MALT_INIT_POP_MAX
+    elif value <= MALT_INIT_POP_MIN:      malt_init_pop = MALT_INIT_POP_MIN
+    else:                                 malt_init_pop = value
+
     update('malt_init_pop')
     
 
-
 def randomize() -> None:
-    _malt_growth_speed_temp: float = round(random.uniform(MALT_GROWTH_SPEED_MIN, MALT_GROWTH_SPEED_MAX), 3)
-    _malt_init_pop_temp: float = round(random.uniform(MALT_INIT_POP_MIN, MALT_INIT_POP_MAX), 3)
-    dpg.configure_item('malt_growth_speed', default_value=_malt_growth_speed_temp)
-    dpg.configure_item('malt_init_pop', default_value=_malt_init_pop_temp)
+    global malt_growth_speed, malt_init_pop
+    malt_growth_speed = round(random.uniform(MALT_GROWTH_SPEED_MIN, MALT_GROWTH_SPEED_MAX), 3)
+    malt_init_pop     = round(random.uniform(MALT_INIT_POP_MIN, MALT_INIT_POP_MAX), 3)
+
+    dpg.configure_item('malt_growth_speed', default_value=malt_growth_speed)
+    dpg.configure_item('malt_init_pop', default_value=malt_init_pop)
     update('all')
 
 
