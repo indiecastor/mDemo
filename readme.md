@@ -13,17 +13,17 @@ git clone https://github.com/indiecastor/mdemo.git
 - SciPy     - 1.15.2
 
 # Structure
-- main.py - Entry point & main window interface
-- constants.py - Max&min values for models parameters
-- models
-| - malt.py - Malthusian model & interfaca
-| - log.py  - Logistic model & interface
-| - pplv.py - Predator-prey Lotka-Volterra model
-| - complv.py - competitive Lotka-Volterra model
-| gui
-| | fonts (JetBrainsMono family)
-| | indents.py - indents for interface
-| | texts.py - raw texts and lists of tags used for formatting
+main.py - Entry point & main window interface
+constants.py - Max&min values for models parameters
+models
+- malt.py - Malthusian model & interface
+- log.py  - Logistic model & interface
+- pplv.py - Predator-prey Lotka-Volterra model
+- complv.py - competitive Lotka-Volterra model
+gui
+- fonts (JetBrainsMono family)
+- indents.py - indents for interface
+- texts.py - raw texts and lists of tags used for formatting
 
 # Contacts
 Vadim Tarasov, Kazan Federal University
