@@ -10,13 +10,13 @@ def model(eq: tuple, t: any) -> tuple:
     return [(pplv_alpha - pplv_beta * y) * x,
             (-pplv_gamma + pplv_delta * x) * y]
 
-pplv_alpha: float = round(random.uniform(PPLV_ALPHA_MIN, PPLV_ALPHA_MAX), 3)
-pplv_beta: float  = round(random.uniform(PPLV_BETA_MIN, PPLV_BETA_MAX), 3)
-pplv_gamma: float = round(random.uniform(PPLV_GAMMA_MIN, PPLV_GAMMA_MAX), 3)
-pplv_delta: float = round(random.uniform(PPLV_DELTA_MIN, PPLV_DELTA_MAX), 3)
+pplv_alpha   = round(random.uniform(PPLV_ALPHA_MIN, PPLV_ALPHA_MAX), 3)
+pplv_beta    = round(random.uniform(PPLV_BETA_MIN, PPLV_BETA_MAX), 3)
+pplv_gamma   = round(random.uniform(PPLV_GAMMA_MIN, PPLV_GAMMA_MAX), 3)
+pplv_delta   = round(random.uniform(PPLV_DELTA_MIN, PPLV_DELTA_MAX), 3)
 
-pplv_init_prey_pop: float = random.uniform(PPLV_INIT_PREY_POP_MIN, PPLV_INIT_PREY_POP_MAX)
-pplv_init_pred_pop: float = random.uniform(PPLV_INIT_PREDATOR_POP_MIN, PPLV_INIT_PREDATOR_POP_MAX)
+pplv_init_prey_pop = random.uniform(PPLV_INIT_PREY_POP_MIN, PPLV_INIT_PREY_POP_MAX)
+pplv_init_pred_pop = random.uniform(PPLV_INIT_PREDATOR_POP_MIN, PPLV_INIT_PREDATOR_POP_MAX)
 
 t_values = np.arange(0.1, 500, 0.1)
 solution = odeint(model, (pplv_init_prey_pop, pplv_init_pred_pop), t_values)
@@ -40,28 +40,8 @@ def update(param: Literal['pplv_alpha', 'pplv_beta', 'pplv_gamma', 'pplv_delta',
             pplv_init_prey_pop = dpg.get_value('pplv_init_prey_pop')
             pplv_init_pred_pop = dpg.get_value('pplv_init_pred_pop')
         case _: raise ValueError('Unknown Parameter!')
-    # Printing debug message
-    if param in PPLV_PARAMS:
-        print(f'DEBUG: [PPLV] Param [{param}] set to {globals()[param]}')
-    elif param == 'all':
-        print('DEBUG: [PPLV] All params updated')
-        print(f'      pplv_alpha: {pplv_alpha}')
-        print(f'      pplv_beta: {pplv_beta}')
-        print(f'      pplv_gamma: {pplv_gamma}')
-        print(f'      pplv_delta: {pplv_delta}')
-        print(f'      pplv_init_prey_pop: {pplv_init_prey_pop}')
-        print(f'      pplv_init_pred_pop: {pplv_init_pred_pop}') 
-    else:
-        print('DEBUG: [PPLV] Unknown param!')
     # Re-calculating solution
     solution = odeint(model, (pplv_init_prey_pop, pplv_init_pred_pop), t_values)
-    # Updating sliders
-    dpg.configure_item('pplv_alpha', default_value=pplv_alpha)
-    dpg.configure_item('pplv_beta', default_value=pplv_beta)
-    dpg.configure_item('pplv_delta', default_value=pplv_delta)
-    dpg.configure_item('pplv_gamma', default_value=pplv_gamma)
-    dpg.configure_item('pplv_init_prey_pop', default_value=pplv_init_prey_pop)
-    dpg.configure_item('pplv_init_pred_pop', default_value=pplv_init_pred_pop)
     # Updating plot
     dpg.set_value('prey_line', [t_values, solution[: ,0].tolist()])
     dpg.set_value('pred_line', [t_values, solution[: ,1].tolist()])
