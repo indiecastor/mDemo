@@ -13,7 +13,7 @@ git clone https://github.com/indiecastor/mdemo.git
 - SciPy     - 1.15.2
 
 # Structure
-main.py - Entry point & main window interface
+main.py - Entry point & main window interface\n
 constants.py - Max&min values for models parameters
 models
 - malt.py - Malthusian model & interface
