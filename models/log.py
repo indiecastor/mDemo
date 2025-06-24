@@ -66,34 +66,34 @@ def drag_line(param):
 
 class Window():
     def __init__(self):
-        with dpg.tab(parent='models_tabs', label='Модель Ферхюльста'):
+        with dpg.tab(parent='models_tabs', label='Logistic'):
             dpg.add_slider_double(tag='log_growth_speed',
                                       min_value=LOG_GROWTH_SPEED_MIN, max_value=LOG_GROWTH_SPEED_MAX, default_value=log_growth_speed,
-                                      width=200, label='Скорость роста',
+                                      width=200, label='Growth speed',
                                       callback=lambda: update('log_growth_speed'))
             dpg.add_slider_double(tag='log_init_pop',
                                   min_value=LOG_INIT_POP_MIN, max_value=LOG_INIT_POP_MAX, default_value=log_init_pop,
-                                  width=200, label='Начальная численность',
+                                  width=200, label='Initial population',
                                   callback=lambda: update('log_init_pop'))
             dpg.add_slider_double(tag='log_capacity',
                                   min_value=LOG_CAPACITY_MIN, max_value=LOG_CAPACITY_MAX, default_value=log_capacity,
-                                  width=200, label='Ёмкость среды',
+                                  width=200, label='Capacity',
                                   callback=lambda: update('log_capacity'))
 
             with dpg.plot(tag='log_main_plot',
                           width=dpg.get_viewport_width()-40,
                           height=dpg.get_viewport_height()-200,
                           equal_aspects=True):
-                x = dpg.add_plot_axis(dpg.mvXAxis, label='T, Время')
-                y = dpg.add_plot_axis(dpg.mvYAxis, label='P, Численность')
+                x = dpg.add_plot_axis(dpg.mvXAxis)
+                y = dpg.add_plot_axis(dpg.mvYAxis)
 
                 dpg.add_line_series(t_values, solution, parent=y, tag='log_pop_line')
                 dpg.add_drag_line(tag='log_capacity_line',
-                                  label='Ёмкость среды', vertical=False, color=[255, 255, 255, 100],
+                                  label='Capacity', vertical=False, color=[255, 255, 255, 100],
                                   default_value=log_capacity,
                                   callback=lambda: drag_line('log_capacity'))
                 dpg.add_drag_line(tag='log_init_pop_line',
-                                  label='Начальная численность', vertical=False, color=[0, 255, 0, 100],
+                                  label='Initial population', vertical=False, color=[0, 255, 0, 100],
                                   default_value=log_init_pop,
                                   callback=lambda: drag_line('log_init_pop'))
                 

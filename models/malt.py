@@ -25,6 +25,15 @@ def update(param) -> None:
         case 'all':
             malt_growth_speed = dpg.get_value('malt_growth_speed')
             malt_init_pop = dpg.get_value('malt_init_pop')
+    # Printing debug message
+    if param in MALT_PARAMS:
+        print(f'[MALT] PARAM UPDATED [{param}: {globals()[param]}]')
+    elif param == 'all':
+        print(f'[MALT] All params updated')
+        print(f'       malt_growth_speed: {malt_growth_speed}')
+        print(f'       malt_init_pop: {malt_init_pop}')
+    else:
+        print('[MALT] Unknown param!')
     # Re-calculating solution
     solution = odeint(model, malt_init_pop, t_values)
     # Updating sliders
@@ -46,29 +55,41 @@ def drag_line():
         dpg.configure_item('malt_init_pop', default_value=value)
 
     update('malt_init_pop')
+    
+
+def randomize() -> None:
+    global malt_growth_speed, malt_init_pop
+    malt_growth_speed = round(random.uniform(MALT_GROWTH_SPEED_MIN, MALT_GROWTH_SPEED_MAX), 3)
+    malt_init_pop     = round(random.uniform(MALT_INIT_POP_MIN, MALT_INIT_POP_MAX), 3)
+
+    dpg.configure_item('malt_growth_speed', default_value=malt_growth_speed)
+    dpg.configure_item('malt_init_pop', default_value=malt_init_pop)
+    update('all')
 
 
 class Window:
     def __init__(self):
-        with dpg.tab(parent='models_tabs', label='Модель Мальтуса'):
+        with dpg.tab(parent='models_tabs', label='Malthusian'):
             dpg.add_slider_double(tag='malt_growth_speed',
                                   min_value=MALT_GROWTH_SPEED_MIN, max_value=MALT_GROWTH_SPEED_MAX,
                                   default_value=malt_growth_speed,
-                                  width=200, label='Скорость роста',
+                                  width=200, label='Growth speed',
                                   callback=lambda: update('malt_growth_speed'))
             dpg.add_slider_double(tag='malt_init_pop',
                                   min_value=MALT_INIT_POP_MIN, max_value=MALT_INIT_POP_MAX, default_value=malt_init_pop,
-                                  width=200, label='Начальная численность',
+                                  width=200, label='Initial population',
                                   callback=lambda: update('malt_init_pop'))
+
+            dpg.add_button(label='Randomize!', callback=randomize)
 
             with dpg.plot(tag='malt_main_plot',
                           width=dpg.get_viewport_width() - 40, height=dpg.get_viewport_height() - 150,
                           equal_aspects=True):
-                x = dpg.add_plot_axis(dpg.mvXAxis, label='T, Время')
-                y = dpg.add_plot_axis(dpg.mvYAxis, label='P, Численность')
+                x = dpg.add_plot_axis(dpg.mvXAxis, label='T, Time')
+                y = dpg.add_plot_axis(dpg.mvYAxis, label='P, Population')
 
                 dpg.add_line_series(t_values, solution, parent=y, tag='malt_pop_line')
                 dpg.add_drag_line(tag='malt_init_pop_line',
-                                  label='Начальная численность', vertical=False, color=[0, 255, 0, 100],
+                                  label='Initial population', vertical=False, color=[0, 255, 0, 100],
                                   default_value=malt_init_pop,
                                   callback=drag_line)

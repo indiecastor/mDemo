@@ -14,44 +14,49 @@ import dearpygui.dearpygui as dpg
 #     _subheader - subheader (JetBrainsMonoNL-Bold, 30)
 #     _paragraph - regular text (JetBrainsMonoNL-Regular, 18)
 
-OV_INTRO_HEADER = 'ПОПУЛЯЦИОННЫЕ МОДЕЛИ'
+OV_INTRO_HEADER = 'Ecological Models Demo'
 OV_INTRO_PARAGRAPH = """
-Эта программа - демонстрация популяционных моделей для студентов. Включает в 
-себя модели Мальтуса, Ферхюльста, модель "Хищник-жертва" и конкуретнтную модель Лотки-Вольтерры
+This program is a demonstraion of population models for students. 
+Here you can drag some sliders and see how the model changes!
 """.replace('\n', '')
 
-OV_MALT_SUBHEADER = 'Модель Мальтуса'
+OV_MALT_SUBHEADER = 'Malthusian model'
 OV_MALT_PARAGRAPH = """
-Эта модель создана Томасов Робертом Мальтусом в "Опыте закона о народонаселении" (1798). Определяется
-дифференциальным уравнением: dx/dt = rx, где x - численность населения в текущий момент, а r - так называемый
-"Мальтузианский параметр", или скорость роста популяции. Модель не учитывает ёмкость среды, так что, согласно
-этой модели, численность популяции растёт экспоненциально при наличии неограниченных ресурсов.
+This model was created by Thomas Robert Malthus in «An Essay on the Principle of Population» (1798). 
+It is defined throuh differential equaion: dx/dt = rx, where r is a growth speed of the population 
+a.k.a. «Malthusian marameter». This model does not take into accout the capacity of the environment, 
+so according to this model population growth exponentially in presence of unlimited resources.
 """.replace('\n', '')
 
-OV_LOG_SUBHEADER = 'Модель Ферхюльста (Логистическая модель)'
+OV_LOG_SUBHEADER = 'Logistic model'
 OV_LOG_PARAGRAPH = """
-Данная модель создана Пьером Франсуа Ферхюльстом между 1838 и 1847 годами. Как и модель Мальтуса, она
-определяется скорость роста r, но, в отличие от последней, здесь численность популяции ограничена ёмкостью среды.
+This model was created by Pierre François Verhulst between 1838 and 1847. 
+This model is also determined by a growth speed r but, unlike Malthusian model, 
+here the population size is limited by a specific carrying capacity of the environment.
 """.replace('\n', '')
 
-OV_LV_SUBHEADER = 'Модель "Хищник-Жертва" Лотки-Вольтерры'
+OV_LV_SUBHEADER = 'Prey-predator Lotka-Volterra Model'
 OV_LV_PARAGRAPH_1 = """
-Модель "Хищник-Жертва" Лотки-Вольтерры изначально предложена Альфредом Лоткой в теории автокаталитических реакций в 1910 г.
-По своей сути это была та же модель Ферхюльста, однако, в 1920 г. Лотка вместе с Андреем Колмогоровым расширили модель на 
-органические системы, используя в качестве примера растения и травоядных животных. Уравнения затем были использованы для анализа 
-взаимодействия хищников и жертв в книге "Элементы физической биологии". Ту же систему уравнений в 1926 г. опубликовал Вито Вольтерра,
-математик и физик, заинтересовавшийся математической биологией.
+The Lotka-Volterra predator-prey model was initially proposed by Alfred J. Lotka in
+the theory of autocatalytic chemical reactions in 1910. This was effectively the 
+logistic equation, originally derived by Pierre François Verhulst. In 1920 
+Lotka extended the model, via Andrey Kolmogorov, to "organic systems" using a 
+plant species and a herbivorous animal species as an example and in 1925 he used 
+the equations to analyse predator-prey interactions in his book on biomathematics. 
+The same set of equations was published in 1926 by Vito Volterra, a mathematician 
+and physicist, who had become interested in mathematical biology.
 """.replace('\n', '')
-
 OV_LV_PARAGRAPH_2 = """
-Модель принимает четыре параметра: a (скорость роста жертв), b (влияние хащников на вымирание жертв), g (смертность хищников)
-и d (влияние численность жертв на прирост хищников).
+This model takes four parameters: alpha (prey per capita growth rate), beta (effect of 
+the presence of predators on the prey death rate), gamma (predator's per capita death rate) 
+and delta (effect of the presence of prey on the predator's growth rate)
 """.replace('\n', '')
 
-OV_COMPLV_SUBHEADER = 'Конкурентная модель Лотки-Вольтерры'
-OV_COMPLV_PARAGRAPH = """
-Модель популяционной динамики двух видов, конкурирующий за один ограниченный ресурс. Параметры: a12 - влияние вида 1 на вид 2,
-a21 - влияние вида 2 на вид 1, также начальные численности, ёмкость среды и скорости роста популяций.
+OV_COMPLV_SUBHEADER = 'Competitive Lotka-Volterra Model'
+OV_COMPLV_PARAGRAPH = """The competitive Lotka-Volterra equations are a simple model
+of the population dynamics of species competing for some common resource. Parameters are:
+alpha12 - the effect of species 1 on species 2; alpha21 - the effect of species 2 on species 1;
+initial populations, capacities and growth speeds.
 """.replace('\n', '')
 
 

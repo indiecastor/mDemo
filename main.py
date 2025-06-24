@@ -37,7 +37,7 @@ with dpg.handler_registry():
 # MAIN WINDOW
 dpg.add_window(tag='main_window', autosize=True)
 with dpg.tab_bar(parent='main_window', tag='models_tabs'):
-    with dpg.tab(label='Обзор'): # OVERVIEW
+    with dpg.tab(label='Overview'): # OVERVIEW
 
         dpg.add_text(OV_INTRO_HEADER,     tag='ov_intro_header')
         dpg.add_text(OV_INTRO_PARAGRAPH,  tag='ov_intro_paragraph',
@@ -68,10 +68,6 @@ with dpg.font_registry():
         jb_mono_extra_bold = dpg.add_font('gui/fonts/JetBrainsMonoNL-ExtraBold.ttf', 40)
         jb_mono_bold       = dpg.add_font('gui/fonts/JetBrainsMonoNL-Bold.ttf', 30)
         jb_mono_regular    = dpg.add_font('gui/fonts/JetBrainsMonoNL-Regular.ttf', 18)
-
-        dpg.add_font_range_hint(dpg.mvFontRangeHint_Cyrillic, parent=jb_mono_extra_bold)
-        dpg.add_font_range_hint(dpg.mvFontRangeHint_Cyrillic, parent=jb_mono_bold)
-        dpg.add_font_range_hint(dpg.mvFontRangeHint_Cyrillic, parent=jb_mono_regular)
         dpg.bind_font(jb_mono_regular)
 
 

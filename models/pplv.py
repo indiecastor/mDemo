@@ -40,7 +40,7 @@ def update(param: str) -> None:
             pplv_delta         = dpg.get_value('pplv_delta')
             pplv_init_prey_pop = dpg.get_value('pplv_init_prey_pop')
             pplv_init_pred_pop = dpg.get_value('pplv_init_pred_pop')
-        case _: raise ValueError('Неизвестный параметр!')
+        case _: raise ValueError('Unknown Parameter!')
     # Re-calculating solution
     solution = odeint(model, (pplv_init_prey_pop, pplv_init_pred_pop), t_values)
     # Updating plot
@@ -51,50 +51,50 @@ def update(param: str) -> None:
 
 class Window():
     def __init__(self):
-        with dpg.tab(parent='models_tabs', label='Модель "Хищник-Жертва" Лотки-Вольтерры'):
+        with dpg.tab(parent='models_tabs', label='Predator-Prey Lotka-Volterra'):
 
 
             dpg.add_slider_double(tag='pplv_alpha',
                                     min_value=0.1, max_value=2.0, default_value=pplv_alpha,
-                                    width=200, label='a: Скорость роста жертв',
+                                    width=200, label='Alpha: Prey growth speed',
                                     callback=lambda: update('pplv_alpha'))
             dpg.add_slider_double(tag='pplv_beta',
                                     min_value=0.1, max_value=2.0, default_value=pplv_beta,
-                                    width=200, label='b: Скорость вымирания жертв',
+                                    width=200, label='Beta: Prey death speed',
                                     callback=lambda: update('pplv_beta'))
             dpg.add_slider_double(tag='pplv_gamma',
                                     min_value=0.1, max_value=2.0, default_value=pplv_gamma,
-                                    width=200, label='g: Скорость роста хищников',
+                                    width=200, label='Gamma: Predator growth speed',
                                     callback=lambda: update('pplv_gamma'))
             dpg.add_slider_double(tag='pplv_delta',
                                     min_value=0.1, max_value=2.0, default_value=pplv_delta,
-                                    width=200, label='d: Скорость вымирания хищников',
+                                    width=200, label='Delta: Predator death speed',
                                     callback=lambda: update('pplv_delta'))
 
             dpg.add_slider_double(tag='pplv_init_prey_pop',
                                     min_value=0.1, max_value=10.0, default_value=pplv_init_prey_pop,
-                                    width=200, label='Начальная численность жертв',
+                                    width=200, label='Initial prey population',
                                     callback=lambda: update('pplv_init_prey_pop'))
             dpg.add_slider_double(tag='pplv_init_pred_pop',
                                     min_value=0.1, max_value=10.0, default_value=pplv_init_pred_pop,
-                                    width=200, label='Начальная численность хищников',
+                                    width=200, label='Initial predator population',
                                     callback=lambda: update('pplv_init_pred_pop'))
 
             dpg.add_group(tag='plots_group', horizontal=True)
             with dpg.plot(parent='plots_group', tag='lv_main_plot',
                             width=(dpg.get_viewport_width()-40)/2,
                             height=dpg.get_viewport_height() - 240, equal_aspects=True): # MAIN PLOT
-                x = dpg.add_plot_axis(dpg.mvXAxis, label='T, Время')
-                y = dpg.add_plot_axis(dpg.mvYAxis, label='P, Численность')
+                x = dpg.add_plot_axis(dpg.mvXAxis, label='T, Time')
+                y = dpg.add_plot_axis(dpg.mvYAxis, label='P, Population')
 
-                dpg.add_line_series(t_values, solution[: ,0].tolist(), parent=y, label='Жертвы', tag='prey_line')
-                dpg.add_line_series(t_values, solution[: ,1].tolist(), parent=y, label='Хищники', tag='pred_line')
+                dpg.add_line_series(t_values, solution[: ,0].tolist(), parent=y, label='Prey', tag='prey_line')
+                dpg.add_line_series(t_values, solution[: ,1].tolist(), parent=y, label='Predator', tag='pred_line')
                 dpg.add_plot_legend()
             
             with dpg.plot(parent='plots_group', tag='lv_phase_diagram',
                             width=(dpg.get_viewport_width()-40)/2,
                             height=dpg.get_viewport_height() - 240, equal_aspects=True): # PHASE DIAGRAM
-                x = dpg.add_plot_axis(dpg.mvXAxis, label='Численность жертв')
-                y = dpg.add_plot_axis(dpg.mvYAxis, label='Численность хищников')
+                x = dpg.add_plot_axis(dpg.mvXAxis, label='Prey population')
+                y = dpg.add_plot_axis(dpg.mvYAxis, label='Predator population')
 
                 dpg.add_line_series(solution[: ,0].tolist(), solution[: ,1].tolist(), parent=y, tag='phase_line')
