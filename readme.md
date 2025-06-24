@@ -26,6 +26,6 @@ git clone https://github.com/indiecastor/mdemo.git
 ———— texts.py - raw texts and lists of tags used for formatting  
 
 # Contacts
-*Vadim Tarasov*
-*Kazan Federal University*
+*Vadim Tarasov*  
+*Kazan Federal University*  
 VaITarasov@stud.kpfu.ru
