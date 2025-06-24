@@ -3,7 +3,6 @@ import numpy as np
 import random
 from scipy.integrate import odeint
 from constants import *
-from typing import Literal
 
 def model(eq: tuple, t: any) -> tuple:
     x, y = eq
@@ -21,8 +20,10 @@ pplv_init_pred_pop = random.uniform(PPLV_INIT_PREDATOR_POP_MIN, PPLV_INIT_PREDAT
 t_values = np.arange(0.1, 500, 0.1)
 solution = odeint(model, (pplv_init_prey_pop, pplv_init_pred_pop), t_values)
 
-def update(param: Literal['pplv_alpha', 'pplv_beta', 'pplv_gamma', 'pplv_delta',
-                          'pplv_init_prey_pop', 'pplv_init_pred_pop', 'all']) -> None:
+def update(param: str) -> None:
+    """
+    param ∈ ['pplv_alpha', 'pplv_beta', 'pplv_gamma', 'pplv_delta', 'pplv_init_prey_pop', 'pplv_init_pred_pop', 'all']
+    """
     global pplv_alpha, pplv_beta, pplv_gamma, pplv_delta, pplv_init_prey_pop, pplv_init_pred_pop, solution
     # Updating values of params
     match param:
@@ -51,6 +52,8 @@ def update(param: Literal['pplv_alpha', 'pplv_beta', 'pplv_gamma', 'pplv_delta',
 class Window():
     def __init__(self):
         with dpg.tab(parent='models_tabs', label='Predator-Prey Lotka-Volterra'):
+
+
             dpg.add_slider_double(tag='pplv_alpha',
                                     min_value=0.1, max_value=2.0, default_value=pplv_alpha,
                                     width=200, label='Alpha: Prey growth speed',
@@ -79,17 +82,18 @@ class Window():
 
             dpg.add_group(tag='plots_group', horizontal=True)
             with dpg.plot(parent='plots_group', tag='lv_main_plot',
-                            width=(dpg.get_viewport_width()-40)/2, height=dpg.get_viewport_height() - 240, equal_aspects=True): # MAIN PLOT
+                            width=(dpg.get_viewport_width()-40)/2,
+                            height=dpg.get_viewport_height() - 240, equal_aspects=True): # MAIN PLOT
                 x = dpg.add_plot_axis(dpg.mvXAxis, label='T, Time')
                 y = dpg.add_plot_axis(dpg.mvYAxis, label='P, Population')
 
-                dpg.add_plot_legend()
-
                 dpg.add_line_series(t_values, solution[: ,0].tolist(), parent=y, label='Prey', tag='prey_line')
                 dpg.add_line_series(t_values, solution[: ,1].tolist(), parent=y, label='Predator', tag='pred_line')
+                dpg.add_plot_legend()
             
             with dpg.plot(parent='plots_group', tag='lv_phase_diagram',
-                            width=(dpg.get_viewport_width()-40)/2, height=dpg.get_viewport_height() - 240, equal_aspects=True): # PHASE DIAGRAM
+                            width=(dpg.get_viewport_width()-40)/2,
+                            height=dpg.get_viewport_height() - 240, equal_aspects=True): # PHASE DIAGRAM
                 x = dpg.add_plot_axis(dpg.mvXAxis, label='Prey population')
                 y = dpg.add_plot_axis(dpg.mvYAxis, label='Predator population')
 

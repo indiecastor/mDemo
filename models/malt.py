@@ -1,5 +1,4 @@
 import random
-from typing import Literal
 
 import dearpygui.dearpygui as dpg
 import numpy as np
@@ -16,7 +15,8 @@ t_values = np.arange(0, 2, .01)
 solution = odeint(model, malt_init_pop, t_values)
 
 
-def update(param: Literal['malt_growth_speed', 'malt_init_pop', 'all']) -> None:
+def update(param) -> None:
+    """ param ∈ ['malt_growth_speed', 'malt_init_pop', 'all'] """
     global malt_growth_speed, malt_init_pop, solution
     # Updating values of params
     match param:

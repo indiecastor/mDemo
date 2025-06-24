@@ -1,41 +1,33 @@
 import dearpygui.dearpygui as dpg
 import numpy as np
 import random
-from typing import Literal
 from scipy.integrate import odeint
 from constants import *
 
-def model(y: float, t: any) -> float: return log_growth_speed * y * (1 - (y / log_capacity))
+def model(y: float, t: any): return log_growth_speed * y * (1 - (y / log_capacity))
 
-log_growth_speed: float = round(random.uniform(LOG_GROWTH_SPEED_MIN, LOG_GROWTH_SPEED_MAX), 3)
-log_init_pop: float     = round(random.uniform(LOG_INIT_POP_MIN, LOG_INIT_POP_MAX), 3)
-log_capacity: float     = round(random.uniform(LOG_CAPACITY_MIN, LOG_CAPACITY_MAX), 3)
+log_growth_speed  = round(random.uniform(LOG_GROWTH_SPEED_MIN, LOG_GROWTH_SPEED_MAX), 3)
+log_init_pop      = round(random.uniform(LOG_INIT_POP_MIN, LOG_INIT_POP_MAX), 3)
+log_capacity      = round(random.uniform(LOG_CAPACITY_MIN, LOG_CAPACITY_MAX), 3)
 
 t_values = np.arange(0.0, 100.0, 0.1)
 solution = odeint(model, log_init_pop, t_values)
 
-def update(param: Literal['log_growth_speed', 'log_init_pop', 'log_capacity', 'all']) -> None:
+def update(param) -> None:
+    """
+    param ∈ ['log_growth_speed', 'log_init_pop', 'log_capacity', 'all']
+    """
     global log_growth_speed, log_init_pop, log_capacity, solution
     # Updating values of params
     match param:
         case 'log_growth_speed': log_growth_speed = dpg.get_value('log_growth_speed')
-        case 'log_init_pop': log_init_pop = dpg.get_value('log_init_pop')
-        case 'log_capacity': log_capacity = dpg.get_value('log_capacity')
+        case 'log_init_pop':    log_init_pop = dpg.get_value('log_init_pop')
+        case 'log_capacity':    log_capacity = dpg.get_value('log_capacity')
         case 'all':
             log_growth_speed = dpg.get_value('log_growth_speed')
             log_init_pop = dpg.get_value('log_init_pop')
             log_capacity = dpg.get_value('log_capacity')
         case _: raise ValueError
-    # Printing debug message
-    if param in LOG_PARAMS:
-        print(f'[LOG] PARAM UPDATED [{param}: {globals()[param]}]')
-    elif param == 'all':
-        print(f'[LOG] All params updated')
-        print(f'      log_growth_speed: {log_growth_speed}')
-        print(f'      log_init_pop: {log_init_pop}')
-        print(f'      log_capacity: {log_capacity}')
-    else:
-        print('[LOG] Unknown param!')
     # Re-calculating solution
     solution = odeint(model, log_init_pop, t_values)
     # Updating sliders
@@ -53,7 +45,10 @@ def update(param: Literal['log_growth_speed', 'log_init_pop', 'log_capacity', 'a
     dpg.configure_item('log_init_pop_line', default_value=log_init_pop)
 
 
-def drag_line(param: Literal['log_capacity', 'log_init_pop']):
+def drag_line(param):
+    """
+    param ∈ ['log_capacity', 'log_init_pop']
+    """
     global log_capacity, log_init_pop
     value = round(dpg.get_value(param + '_line'), 3)
     match param:
@@ -67,20 +62,6 @@ def drag_line(param: Literal['log_capacity', 'log_init_pop']):
             else:                                   log_init_pop = value
     dpg.configure_item(param, default_value=globals()[param])
     update(param)
-        
-
-def randomize() -> None:
-    global log_capacity, log_growth_speed, log_init_pop
-
-    log_growth_speed = round(random.uniform(LOG_GROWTH_SPEED_MIN, LOG_GROWTH_SPEED_MAX), 3)
-    log_init_pop     = round(random.uniform(LOG_INIT_POP_MIN, LOG_INIT_POP_MAX), 3)
-    log_capacity     = round(random.uniform(LOG_CAPACITY_MIN, LOG_CAPACITY_MAX), 3)
-
-    dpg.configure_item('log_growth_speed', default_value=log_growth_speed)
-    dpg.configure_item('log_init_pop', default_value=log_init_pop)
-    dpg.configure_item('log_capacity', default_value=log_capacity)
-
-    update('all')
 
 
 class Window():
@@ -98,11 +79,10 @@ class Window():
                                   min_value=LOG_CAPACITY_MIN, max_value=LOG_CAPACITY_MAX, default_value=log_capacity,
                                   width=200, label='Capacity',
                                   callback=lambda: update('log_capacity'))
-            
-            dpg.add_button(label='Randomize!', callback=randomize)
 
             with dpg.plot(tag='log_main_plot',
-                          width=dpg.get_viewport_width()-40, height=dpg.get_viewport_height()-200,
+                          width=dpg.get_viewport_width()-40,
+                          height=dpg.get_viewport_height()-200,
                           equal_aspects=True):
                 x = dpg.add_plot_axis(dpg.mvXAxis)
                 y = dpg.add_plot_axis(dpg.mvYAxis)
