@@ -89,7 +89,7 @@ class Window():
 
                 dpg.add_line_series(t_values, solution, parent=y, tag='log_pop_line')
                 dpg.add_drag_line(tag='log_capacity_line',
-                                  label='Capacity', vertical=False, color=[255, 255, 255, 100],
+                                  label='Capacity', vertical=False, color=[255, 0, 0, 100],
                                   default_value=log_capacity,
                                   callback=lambda: drag_line('log_capacity'))
                 dpg.add_drag_line(tag='log_init_pop_line',
