@@ -50,7 +50,9 @@ def drag_line():
     value = round(dpg.get_value('malt_init_pop_line'), 3)
     if value >= MALT_INIT_POP_MAX:        malt_init_pop = MALT_INIT_POP_MAX
     elif value <= MALT_INIT_POP_MIN:      malt_init_pop = MALT_INIT_POP_MIN
-    else:                                 malt_init_pop = value
+    else:
+        malt_init_pop = value
+        dpg.configure_item('malt_init_pop', default_value=value)
 
     update('malt_init_pop')
     
