@@ -11,7 +11,7 @@ def model(eq: tuple, t: any) -> tuple:
     x1, x2 = eq
     return [
         complv_growth_rates[0] * x1 * (1 - ((x1 + (complv_alphas[0] * x2))/complv_capacities[0])),
-        complv_growth_rates[1] * x2 * (1 - ((x2 + (complv_alphas[1] * x1))/(complv_capacities[1]))),
+        complv_growth_rates[1] * x2 * (1 - ((x2 + (complv_alphas[1] * x1))/complv_capacities[1])),
         ]
 
 
@@ -39,22 +39,7 @@ def update(param: Literal['complv_alpha', 'complv_growth_rate',
             complv_growth_rates[species] = dpg.get_value(f'complv_growth_rate_{species}')
             complv_capacities[species] = dpg.get_value(f'complv_capacity_{species}')
             complv_init_pops[species] = dpg.get_value(f'complv_init_pop_{species}')
-    # Printing debug message
-    if param in COMPLV_PARAMS:
-        print(f'DEBUG: [COMPLV] param ', end='')
-        match param:
-            case 'complv_alpha':         print('[complv_alpha] ', end='')
-            case 'complv_growth_rate':   print('[complv_growth_rate] ', end='')
-            case 'complv_capacity':      print('[complv_capacity] ', end='')
-            case 'complv_init_pop':      print('[complv_init_pop] ', end='')
-        print(f'for species {species} set to ', end='')
-        match param:
-            case 'complv_alpha':         print(complv_alphas[species])
-            case 'complv_growth_rate':   print(complv_growth_rates[species])
-            case 'complv_capacity':      print(complv_capacities[species])
-            case 'complv_init_pop':      print(complv_init_pops[species])
-    elif param == 'all':                 print('DEBUG: [COMPLV] all params updated!')
-    else:                                print('DEBUG: [COMPLV] unknown param!')
+
     # Re-calculating solution
     solution = odeint(model, complv_init_pops, t_values)
     # Updating plot
