@@ -25,15 +25,6 @@ def update(param) -> None:
         case 'all':
             malt_growth_speed = dpg.get_value('malt_growth_speed')
             malt_init_pop = dpg.get_value('malt_init_pop')
-    # Printing debug message
-    if param in MALT_PARAMS:
-        print(f'[MALT] PARAM UPDATED [{param}: {globals()[param]}]')
-    elif param == 'all':
-        print(f'[MALT] All params updated')
-        print(f'       malt_growth_speed: {malt_growth_speed}')
-        print(f'       malt_init_pop: {malt_init_pop}')
-    else:
-        print('[MALT] Unknown param!')
     # Re-calculating solution
     solution = odeint(model, malt_init_pop, t_values)
     # Updating sliders
@@ -58,13 +49,25 @@ def drag_line():
     
 
 def randomize() -> None:
-    global malt_growth_speed, malt_init_pop
+    global malt_growth_speed, malt_init_pop, solution
     malt_growth_speed = round(random.uniform(MALT_GROWTH_SPEED_MIN, MALT_GROWTH_SPEED_MAX), 3)
     malt_init_pop     = round(random.uniform(MALT_INIT_POP_MIN, MALT_INIT_POP_MAX), 3)
 
     dpg.configure_item('malt_growth_speed', default_value=malt_growth_speed)
     dpg.configure_item('malt_init_pop', default_value=malt_init_pop)
-    update('all')
+    solution = odeint(model, malt_init_pop, t_values)
+    dpg.set_value('malt_pop_line', [t_values, solution])
+    dpg.set_value('malt_init_pop_line', malt_init_pop)
+
+def zero_out() -> None:
+    global malt_growth_speed, malt_init_pop, solution
+    malt_growth_speed, malt_init_pop = MALT_GROWTH_SPEED_MIN, MALT_INIT_POP_MIN
+    dpg.configure_item('malt_growth_speed', default_value=malt_growth_speed)
+    dpg.configure_item('malt_init_pop', default_value=malt_init_pop)
+    solution = odeint(model, malt_init_pop, t_values)
+    dpg.set_value('malt_pop_line', [t_values, solution])
+    dpg.set_value('malt_init_pop_line', malt_init_pop)
+
 
 
 class Window:
@@ -80,7 +83,9 @@ class Window:
                                   width=200, label='Initial population',
                                   callback=lambda: update('malt_init_pop'))
 
-            dpg.add_button(label='Randomize!', callback=randomize)
+            with dpg.group(horizontal=True): # Randomize and zero out buttons
+                dpg.add_button(label='Randomize!', callback=randomize)
+                dpg.add_button(label='Zero out!', callback=zero_out)
 
             with dpg.plot(tag='malt_main_plot',
                           width=dpg.get_viewport_width() - 40, height=dpg.get_viewport_height() - 150,

@@ -9,13 +9,13 @@ def model(eq: tuple, t: any) -> tuple:
     return [(pplv_alpha - pplv_beta * y) * x,
             (-pplv_gamma + pplv_delta * x) * y]
 
-pplv_alpha   = round(random.uniform(PPLV_ALPHA_MIN, PPLV_ALPHA_MAX), 3)
-pplv_beta    = round(random.uniform(PPLV_BETA_MIN, PPLV_BETA_MAX), 3)
-pplv_gamma   = round(random.uniform(PPLV_GAMMA_MIN, PPLV_GAMMA_MAX), 3)
-pplv_delta   = round(random.uniform(PPLV_DELTA_MIN, PPLV_DELTA_MAX), 3)
+pplv_alpha   = round(random.uniform(PPLV_A_MIN, PPLV_A_MAX), 3)
+pplv_beta    = round(random.uniform(PPLV_B_MIN, PPLV_B_MAX), 3)
+pplv_gamma   = round(random.uniform(PPLV_G_MIN, PPLV_G_MAX), 3)
+pplv_delta   = round(random.uniform(PPLV_D_MIN, PPLV_D_MAX), 3)
 
-pplv_init_prey_pop = random.uniform(PPLV_INIT_PREY_POP_MIN, PPLV_INIT_PREY_POP_MAX)
-pplv_init_pred_pop = random.uniform(PPLV_INIT_PREDATOR_POP_MIN, PPLV_INIT_PREDATOR_POP_MAX)
+pplv_init_prey_pop = random.uniform(PPLV_IP_PREY_MIN, PPLV_IP_PREY_MAX)
+pplv_init_pred_pop = random.uniform(PPLV_IP_PRED_MIN, PPLV_IP_PRED_MAX)
 
 t_values = np.arange(0.1, 500, 0.1)
 solution = odeint(model, (pplv_init_prey_pop, pplv_init_pred_pop), t_values)

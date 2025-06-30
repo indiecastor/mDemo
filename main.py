@@ -3,6 +3,7 @@ import dearpygui.dearpygui as dpg
 from gui.texts import *
 from gui.indents import *
 from models import log, malt, pplv, complv
+import settings
 
 
 dpg.create_context()
@@ -36,6 +37,10 @@ with dpg.handler_registry():
     
 # MAIN WINDOW
 dpg.add_window(tag='main_window', autosize=True)
+with dpg.menu_bar(parent='main_window'):
+     with dpg.menu(label='Settings'):
+          dpg.add_menu_item(label='Settings', callback=settings.SettingsWindow.__init__)
+          dpg.add_menu_item(label='Theme', callback=settings.ThemeSettingsWindow.__init__)
 with dpg.tab_bar(parent='main_window', tag='models_tabs'):
     with dpg.tab(label='Overview'): # OVERVIEW
 
