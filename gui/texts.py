@@ -60,14 +60,7 @@ initial populations, capacities and growth speeds.
 """.replace('\n', '')
 
 
-TEXTS_EXTRA_BOLD: list[str] = ['ov_intro_header']
-TEXTS_BOLD: tuple[str] = (
-                            'ov_malt_subheader', 'ov_log_subheader',
-                            'ov_lv_subheader', 'ov_complv_subheader')
-TEXTS_REGULAR: tuple[str] = (
-                            'ov_intro_paragraph',
-                            'ov_malt_paragraph',
-                            'ov_log_paragraph',
-                            'ov_lv_paragraph_1',
-                            'ov_lv_paragraph_2',
-                            'ov_complv_paragraph')
+TEXTS_EXTRA_BOLD = ['ov_intro_header']
+TEXTS_BOLD = ['ov_malt_subheader', 'ov_log_subheader','ov_lv_subheader', 'ov_complv_subheader']
+TEXTS_REGULAR = ['ov_intro_paragraph', 'ov_malt_paragraph', 'ov_log_paragraph',
+                 'ov_lv_paragraph_1', 'ov_lv_paragraph_2', 'ov_complv_paragraph']

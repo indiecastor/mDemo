@@ -1,22 +1,22 @@
-MALT_GROWTH_SPEED_MIN, MALT_GROWTH_SPEED_MAX           = 0.01, 10.0
-MALT_INIT_POP_MIN, MALT_INIT_POP_MAX                   = 0.01, 10.0
+MALT_GR_MIN, MALT_GR_MAX  = 0.01, 10.0 # Growth rate
+MALT_IP_MIN, MALT_IP_MAX  = 0.01, 10.0 # Initial population
 
-L_GS_MIN, L_GS_MAX             = 0.01, 10.0
-L_IP_MIN,     L_IP_MAX                 = 0.1, 20.0
-L_C_MIN,     L_C_MAX                 = 0.1, 10.0
+L_GR_MIN, L_GR_MAX = 0.01, 10.0 # Growth rate
+L_IP_MIN, L_IP_MAX = 0.1, 20.0  # initial population
+L_C_MIN,  L_C_MAX  = 0.1, 10.0  # Capacity
   
-PPLV_A_MIN, PPLV_A_MAX                         = 0.1, 2
-PPLV_B_MIN,  PPLV_B_MAX                          = 0.1, 2
-PPLV_G_MIN, PPLV_G_MAX                         = 0.1, 2
-PPLV_D_MIN, PPLV_D_MAX                         = 0.1, 2
+PPLV_A_MIN, PPLV_A_MAX  = 0.1, 2 # Alpha
+PPLV_B_MIN,  PPLV_B_MAX = 0.1, 2 # Beta
+PPLV_G_MIN, PPLV_G_MAX  = 0.1, 2 # Gamma
+PPLV_D_MIN, PPLV_D_MAX  = 0.1, 2 # Delta
 
-PPLV_IP_PREY_MIN,     PPLV_IP_PREY_MAX     = 0.1, 2
-PPLV_IP_PRED_MIN, PPLV_IP_PRED_MAX = 0.1, 2
+PPLV_IP_PREY_MIN, PPLV_IP_PREY_MAX = 0.1, 2 # Initial PREY population
+PPLV_IP_PRED_MIN, PPLV_IP_PRED_MAX = 0.1, 2 # Initial PREDATOR population
 
-COMPLV_GROWTH_RATE_MIN, COMPLV_GROWTH_RATE_MAX         = 0.1, 0.9
-COMPLV_ALPHA_MIN, COMPLV_ALPHA_MAX                     = 0.1, 0.9
-COMPLV_CAPACITY_MIN, COMPLV_CAPACITY_MAX               = 10.0, 100.0
-COMPLV_INIT_POP_MIN, COMPLV_INIT_POP_MAX               = 10.0, 100.0
+COMPLV_GR_MIN, COMPLV_GR_MAX   = 0.1, 0.9 # Growth rate
+COMPLV_A_MIN, COMPLV_A_MAX     = 0.1, 0.9 # Alpha
+COMPLV_CAP_MIN, COMPLV_CAP_MAX = 10.0, 100.0 # Capacity
+COMPLV_IP_MIN, COMPLV_IP_MAX   = 10.0, 100.0 # Initial population
 
 # Parameter lists do not include 'all' parameter!
 LOG_PARAMS:  list[str]   = ['log_growth_speed', 'log_init_pop', 'log_capacity']
