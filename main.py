@@ -14,7 +14,6 @@ dpg.create_viewport(title='Models Demo',
 def update_geometry(sender, app_data):
     vp_width:  int = dpg.get_viewport_width()
     vp_height: int = dpg.get_viewport_height()
-
     # Malthusian Model Plot
     dpg.configure_item('malt_main_plot', width=vp_width-MALT_R, height=vp_height-MALT_D)
     # Logistic Model Plot
@@ -56,10 +55,10 @@ with dpg.tab_bar(parent='main_window', tag='models_tabs'):
         dpg.add_text(OV_COMPLV_PARAGRAPH, tag='ov_complv_paragraph',
                      wrap=dpg.get_viewport_width()-PARAG_R)
 
-    malt.Window()
-    log.Window()    
-    pplv.Window()
-    complv.Window()
+    malt.window()
+    log.window()
+    pplv.window()
+    complv.window()
    
 dpg.setup_dearpygui()
 dpg.set_primary_window('main_window', True)
