@@ -17,7 +17,6 @@ pip install -r requirements.txt
 
 # Structure
 ```
-```
 project_root/  
 ├── main.py              # Entry point and main window interface  
 ├── constants.py         # Min/max values for model parameters  
@@ -35,8 +34,7 @@ project_root/
 │   ├── indents.py       # UI spacing and indents  
 │   └── texts.py         # Raw texts and formatting tag lists  
 │  
-└── README.md            #  Project description  
-```
+└── README.md            #  Project description 
 ```
 # Contacts
 *Vadim Tarasov*  
