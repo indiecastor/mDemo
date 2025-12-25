@@ -16,24 +16,24 @@ pip install -r requirements.txt
 - SciPy     - 1.15.2
 
 # Structure
-project_root/
-├── main.py              # Entry point and main window interface
-├── constants.py         # Min/max values for model parameters
-│
-├── models/
-│   ├── malt.py          # Malthusian model and interface
-│   ├── log.py           # Logistic model and interface
-│   ├── pplv.py          # Predator–prey Lotka–Volterra model
-│   └── complv.py        # Competitive Lotka–Volterra model
-│
-├── gui/
-│   ├── fonts/
-│   │   └── JetBrainsMono/   # Font family
-│   │
-│   ├── indents.py       # UI spacing and indents
-│   └── texts.py         # Raw texts and formatting tag lists
-│
-└── README.md            # (optional) Project description
+project_root/  
+├── main.py              # Entry point and main window interface  
+├── constants.py         # Min/max values for model parameters  
+│  
+├── models/  
+│   ├── malt.py          # Malthusian model and interface  
+│   ├── log.py           # Logistic model and interface  
+│   ├── pplv.py          # Predator–prey Lotka–Volterra model  
+│   └── complv.py        # Competitive Lotka–Volterra model  
+│  
+├── gui/  
+│   ├── fonts/  
+│   │   └── JetBrainsMono/   # Font family  
+│   │  
+│   ├── indents.py       # UI spacing and indents  
+│   └── texts.py         # Raw texts and formatting tag lists  
+│  
+└── README.md            # (optional) Project description  
 
 # Contacts
 *Vadim Tarasov*  
