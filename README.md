@@ -16,6 +16,8 @@ pip install -r requirements.txt
 - SciPy     - 1.15.2
 
 # Structure
+```
+```
 project_root/  
 ├── main.py              # Entry point and main window interface  
 ├── constants.py         # Min/max values for model parameters  
@@ -33,8 +35,9 @@ project_root/
 │   ├── indents.py       # UI spacing and indents  
 │   └── texts.py         # Raw texts and formatting tag lists  
 │  
-└── README.md            # (optional) Project description  
-
+└── README.md            #  Project description  
+```
+```
 # Contacts
 *Vadim Tarasov*  
 *Kazan Federal University*  
