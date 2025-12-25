@@ -34,7 +34,7 @@ project_root/
 │   ├── indents.py       # UI spacing and indents  
 │   └── texts.py         # Raw texts and formatting tag lists  
 │  
-└── README.md            #  Project description 
+└── README.md            # Project description 
 ```
 # Contacts
 *Vadim Tarasov*  
